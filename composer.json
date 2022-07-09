@@ -17,8 +17,7 @@
     },
     "autoload": {
         "psr-4": {
-            "ericxu\\library\\": "src/library",
-            "ericxu\\unionpay\\": "src/unionpay"
+            "ericxu\\unionpay\\": "src"
         }
     },
     "config": {

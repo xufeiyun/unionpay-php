@@ -1,6 +1,6 @@
 <?php
 
-namespace ericxu\library;
+namespace ericxu\unionpay;
 
 /*
  * BaseCryptor class
