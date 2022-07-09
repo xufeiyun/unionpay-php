@@ -1,0 +1,28 @@
+{
+    "name": "xufeiyun/unionpay-php",
+    "description": "The UnionPay Library for PHP language",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Eric Xu",
+            "email": "vanillapeter@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.1.0",
+        "ext-json": "*",
+        "vinkla/hashids": "^3.1.0",
+        "phpseclib/phpseclib": "~2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "ericxu\\": "src"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "kylekatarnls/update-helper": true
+        }
+    }
+}
