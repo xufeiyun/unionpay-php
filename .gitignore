@@ -53,3 +53,5 @@ dkms.conf
 
 /vendor/
 /.idea/
+/composer.lock
+/phpunit.xml
