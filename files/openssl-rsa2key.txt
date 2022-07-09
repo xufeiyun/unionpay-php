@@ -1,0 +1,37 @@
+
+## How to generate rsa public-key & private-key with openssl cli features?
+
+# IMPORTANT: test-key files (rsa_private_key.pem & rsa_public_key.pem) for testing features
+# IMPORTANT: do NOT use the TWO files in production, it is JUST for testing featuress
+
+# 1. generate rsa_private_key.pem file
+openssl genrsa -out rsa_private_key.pem 1024
+
+
+# 2. convert to private key as pkcs8 format
+openssl pkcs8 -nocrypt -topk8 -inform PEM -in rsa_private_key.pem -outform PEM
+# this command will output the generated private key to the console directly
+# and the key had been written into the original rsa_private_key.pem directly
+-----BEGIN PRIVATE KEY-----
+MIICdQIBADANBgkqhkiG9w0BAQEFAASCAl8wggJbAgEAAoGBAKreGYpUjVFZT4tL
+XbzBYyFwKCIZ/xBwM0NpnkxyVSxhU0V8bJyHm+wG1ooWKHzlpEV4HEaTI3Dtu1w5
++l6kbydjjI20GQKybxc5hXpwk0Sw7xjJQ9brt4bn9n9WQ71luxbZ3IR6XzigNj2Q
+8sNnGjh4jQRgXcgHLvC32prvz9v1AgMBAAECgYAJXsizx1NApM8x6l4nnctb6BSr
+WhWcxypohgBCXPrCxkuUwfAK3Xz1gqJ9TB3IS6eoj5+tVyBYbxEZS6ypSAc4YNAv
+/eoosdhbX1q6gdIti9Vh4wlNnOhU/ApchlQ4ZbQRmBImq8PWdJvjrbP3I/rDHD7R
+shivL1lVYOmE7UHGeQJBANdvw2bSxPKqtu8afh8ds9AISY19mRwrz0WOcPJK413b
+k+mbvJJsez9QTieczKvQzknvSXz1Yo7Z1aeStqzLF9cCQQDLChIYIE20S6BGkHZd
+8mfZbXQsBOCgibsG4xnhbQwKHodYREoewkmrYUjnuQ49yWiLE9VSEmbkbCHiWEk1
+3METAkBe2172DyeYkYIqlUei+7kIiB2apwqbVM7WmXkxtbeWw+/ElEXbUtiRcBJ5
+bpjPrgimlS2OT50tuMxSFE9KlcHRAkBJ+q5jGgoWAmQwsdxfGL7cCzSEAXbzJ5v8
+w2yfpYL4gO0hrSgwkuwSxMyymcvlmWg9HInicJAK9JdYCIEMXhX/AkBylVzVR25w
+AlVuG/14BBLzQnbZulH3+6xIPwjODSdQIJlpFtL2QJS1udYvuMEJz4NXLxDfUpS0
+AXBRQ+ze8JHm
+-----END PRIVATE KEY-----
+
+# 3. convert private-key to public-key
+openssl rsa -in rsa_private_key.pem -pubout -out rsa_public_key.pem
+
+# 4. the public & private key-pair files are for testing features ONLY:
+rsa_public_key.pem
+rsa_private_key.pem
