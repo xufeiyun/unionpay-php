@@ -1,0 +1,103 @@
+
+不可将此文件的内容直接提交git  【要脱敏数据】
+
+提供以下变量定义的数据信息，可进行相关业务处理
+
+0、加密各类key的加密盐(salt)
+$secretKey user-defined-key 24-chars belongs to [0~9a-zA-Z]
+
+1、银联接口所对应的api地址
+$apiUrl the api url provided by ChinaUnionPay
+
+2、[UnionPublicKey] 银联接口数据报文加解密公钥数据
+$pubKeys ['key_module', 'key_index', 'key_file']
+    公钥模数据：key_module
+    公钥指数数据：key_index
+    生成的公钥数据文件：key_file (业务方提供文件路径，用于存储文件)
+
+3、[UnionBusinessKey] 银联接口数据报文加解密后的各类key数据(含key有效期)
+$bizKeys ['temp_key', 'mac_key', 'session_key', 'pin_key', 'track_key', 'expire_time']
+
+4、[UnionPayUserInfo] 业务信息1：收付款方信息
+$payInfo ['payer_id', 'payee_id', 'deal_id', 'merchant_code', 'terminal_code', 'payer_name', 'payer_account', 'topay_price', 'payee_name', 'payee_account', 'payee_idcard']
+
+## 交易信息
+    付款人ID: payer_id = merchant_id
+    收款人ID: payee_id = farmer_id
+    交易单ID: deal_id
+
+## 付款人信息：
+    实体商户号(FirmMchntId): merchant_code
+    实体终端号(FirmTermId): terminal_code
+
+    付款人姓名(PayerNm): payer_name
+    付款人账号(PayerAccNo): payer_account - 选填
+    付款金额(TrxAmt): topay_price  - 至多两位小数金额（会自动转为12位定长数字，单位为分）
+
+## 收款人信息：
+    收款人姓名(CardHolder): payee_name
+    收款人账号(AccNo): payee_account
+    收款人证件号(IdNo)：payee_idcard - 【测试时可不发】
+
+
+5、[UnionAppBaseInfo] 业务信息2：APP终端信息
+$appInfo ['factory_code', 'product_model', 'package_Name', 'app_name', 'app_version', 'transaction_mode', 'app_merchant_no', 'app_terminal_no']
+
+    厂商代码(FirmCd): factory_code
+    产品型号(ProdCd): product_model
+    App包名(PayAppPackNm): package_Name
+    App名称(PayAppNm): app_name
+    App版本(PayAppVerInf): app_version
+
+    【以下数据项，可不传入】
+    交易模式(TrxMd): transaction_mode - 固定值:01(主商户号)
+    应用商户号(AppMrchntNo): app_merchant_no - TrxMd=02时必填
+    应用终端号(AppTrmNo): app_terminal_no - TrxMd=02时必填
+
+6、[DataSaverInterface] 业务方须提供数据存储接口实现
+$saver 实现 DataSaverInterface接口 的对象
+如未提供则使用默认处理器（DataSaverHandler），否则不存储数据且抛出异常（UnionException）
+
+
+##### 发送的银联API接口的通用报文数据字段组成格式
+# 共8个或7个字段
+# 关键的业务类数据，是加密后以EncryptData字段发送
+[
+    "Version"       // 版本号，默认值：100
+    "TrxTp"         // 交易代码，如：SPU004
+    "TrxIndCd"      // 交易订单号
+    "FirmMchntId"   // 实体商户号
+    "FirmTermId"    // 实体终端号
+    "EncryptData"   // 业务数据加密后数据串
+    "CerVer"        // 证书版本号，默认值：02
+    "MAC"           // 有MAC交易(如SPU004等)，需要此字段；无MAC交易(如SPK006&SPK007)，不用此字段；要计算MAC时，是依据前面7个字段值+MAC_KEY由(ANSI X9.19 MAC Algorithm)计算后得到MAC。
+]
+
+
+##### 各业务所需要的报文字段
+# 【未使用】SPK001 重置会话密钥
+由 SPK006 & SPK007 代替
+
+# SPK006 机构重置密钥申请
+# SPK007 机构重置密钥确认
+需要：url, public keys, kinds of keys,
+ "FirmMchntId" => $this->payInfos->merchantCode, // 实体商户号
+ "FirmTermId" => $this->payInfos->terminalCode, // 实体终端号
+
+
+# SPU002 全渠道交易状态查询
+<common-fields>
+ "OriTrxIndCd" => $this->originTransactionCode];
+
+
+# SPU004 农资代扣代付
+<common-fields>
+
+# 【未使用】SPU005 农资代扣代付交易状态查询
+由 SPU002 代替
+
+# SPM013 农资收购剩余额度查询
+<common-fields>
+
+##### 要保存的分类及属性定义
+TODO 汇总说明信息

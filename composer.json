@@ -1,5 +1,5 @@
 {
-    "name": "xufeiyun/unionpay-php",
+    "name": "sanlong/unionpay-php",
     "description": "The UnionPay Library for PHP language",
     "type": "library",
     "license": "MIT",
@@ -9,16 +9,19 @@
             "email": "vanillapeter@gmail.com"
         }
     ],
+    "keywords": [
+        "sanlong",
+        "unionpay",
+        "union",
+        "pay"
+    ],
     "require": {
-        "php": ">=7.1.0",
-        "ext-json": "*",
-        "vinkla/hashids": "^3.1.0",
+        "php": ">=7.0.0",
         "phpseclib/phpseclib": "~2.0"
     },
     "autoload": {
-        "psr-4": {
-            "ericxu\\unionpay\\": "src"
-        }
+        "files": ["bootstrap.php"],
+        "psr-4": { "slkj\\unionpay\\": "src/main/php" }
     },
     "config": {
         "allow-plugins": {

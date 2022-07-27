@@ -17,12 +17,12 @@
         $pubKey = '<file_content_of_rsa_public_key.pem>'; // public key
         $pvtKey = '<file_content_of_rsa_private_key.pem>'; // private key
 
-        $password = RSACryptor::publicEncrypt('xufeiyun', $pubKey); // encrypt, the $password does CHANGED after every encryption
+        $password = RSACryptor::publicEncrypt('sanlong', $pubKey); // encrypt, the $password does CHANGED after every encryption
         $passtext = RSACryptor::privateDecrypt($password, $pvtKey); // decrypt
         var_dump($password);
         var_dump($passtext);
 
-        $password = RSACryptor::privateEncrypt('EricXu', $pvtKey); // encrypt, the $password does NOT CHANGED after every encryption
+        $password = RSACryptor::privateEncrypt('slkj', $pvtKey); // encrypt, the $password does NOT CHANGED after every encryption
         $passtext = RSACryptor::publicDecrypt($password, $pubKey); // decrypt
         var_dump($password);
         var_dump($passtext);

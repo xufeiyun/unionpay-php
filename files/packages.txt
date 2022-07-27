@@ -1,0 +1,6 @@
+unused packages:
+"ext-json": "*",
+"vinkla/hashids": "^3.1.0",
+"apache/log4php": "^2.3"
+"doctrine/annotations": "^1.13"
+"phpunit/phpunit": "5.0.0"

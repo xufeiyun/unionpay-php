@@ -51,6 +51,8 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
+/assets/
+/files/union_public_key.pem
 /vendor/
 /.idea/
 /composer.lock

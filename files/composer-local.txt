@@ -1,0 +1,23 @@
+
+1、下载 unionpay-php 项目到本地
+从git上下载下来后，不要直接下载到业务项目的任何目录中，避免和业务项目的代码一并提交。
+
+为了与composer install保持一致的目录格式的话，可查看本项目的composer-name是 sanlong/unionpay-php。
+则可下载代码到以下目录中：
+<third-project-root-folder>/../unionpay-php
+（表示以业务项目根目录平级）
+
+2、在项目的 composer.json 文件中
+找到 "autoload" 这一节中，
+1）【对象格式：key-value-pair】在 "autoload" -> "psr-4" 中添加一行（注间在上一行要补英文逗号，而本行后无内容则不要有逗号），内容中下：
+"slkj\\unionpay\\": "<third-project-root-folder>/../unionpay-php/src/main/php"
+说明：
+slkj\\unionpay\\: 表示unionpay-php项目中的类命名空间；
+
+2）【数组格式：single-string】在 "autoload" -> "files" 中添加一行（注间在上一行要补英文逗号，而本行后无内容则不要有逗号），内容中下：
+"<third-project-root-folder>/../unionpay-php/bootstrap.php"
+说明：此文件 bootstrap.php 为特定的启动加载预定义文件。
+
+3、composer install
+运行上述命令，以便更新composer加载文件的相关代码。
+

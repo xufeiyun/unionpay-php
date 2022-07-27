@@ -1,13 +1,16 @@
 <?php
 
-namespace ericxu\unionpay;
+namespace slkj\unionpay;
 
 /*
  * RSACryptor class
+ * Using openssl crypt methods with public & private key pairs
+ * @package slkj\unionpay
  */
 class RSACryptor extends  BaseCryptor
 {
-    public function __construct() {
+    public function __construct($logger = null) {
+        parent::__construct($logger);
     }
 
     /**
